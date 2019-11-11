@@ -39,10 +39,10 @@ jobs:
       uses: wei/wget@v1
       with:
         args: -O downloads/voyage-0.11.0_amd64.tar.gz https://cloud.3mdeb.com/index.php/s/rUZPwRHOjxpSxN4/download
-    - uses: actions/upload-artifact@master
-      with:
-        name: my-artifact
-        path: downloads
+#    - uses: actions/upload-artifact@master
+#      with:
+#        name: my-artifact
+#        path: downloads
 
     - name: Release
       uses: softprops/action-gh-release@v1
