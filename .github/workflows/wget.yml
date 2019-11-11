@@ -1,0 +1,55 @@
+name: CI wget
+
+on: [milestone]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run a one-line script
+      run: echo Hello, world!
+    #- name: Run a multi-line script
+      #run: |
+        #echo Add other actions to build,
+        #echo test, and deploy your project.
+    - name: mkdir downloads
+      run: mkdir downloads
+
+    - name: wget Dependencies kernels
+      uses: wei/wget@v1
+      with:
+        args: -O downloads/kernels.tar.gz https://cloud.3mdeb.com/index.php/s/UQQVYrNIhg7ddwj/download
+    - name: wget Dependencies debian-stable
+      uses: wei/wget@v1
+      with:
+        args: -O downloads/debian-stable.tar.gz https://cloud.3mdeb.com/index.php/s/9b8h6WmJcNsuB57/download
+    - name: wget Dependencies xen.tar.gz
+      uses: wei/wget@v1
+      with:
+        args: -O downloads/xen.tar.gz https://cloud.3mdeb.com/index.php/s/fzQ2FaRTdMvzXqO/download
+        
+    - name: wget Dependencies core.tar.gz
+      uses: wei/wget@v1
+      with:
+        args: -O downloads/core.tar.gz https://cloud.3mdeb.com/index.php/s/AQuUdsYkBzO9UJz/download
+    - name: wget Dependencies voyage-0.11.0_amd64.tar.gz
+      uses: wei/wget@v1
+      with:
+        args: -O downloads/voyage-0.11.0_amd64.tar.gz https://cloud.3mdeb.com/index.php/s/rUZPwRHOjxpSxN4/download
+    - uses: actions/upload-artifact@master
+      with:
+        name: my-artifact
+        path: downloads
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      #if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: |
+          downloads/*
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
