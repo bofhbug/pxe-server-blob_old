@@ -22,6 +22,8 @@ jobs:
       uses: wei/wget@v1
       with:
         args: -O downloads/kernels.tar.gz https://cloud.3mdeb.com/index.php/s/UQQVYrNIhg7ddwj/download
+    - run: gzip -k -v -d downloads/kernels.tar.gz
+    - run: xz -v -9 downloads/kernels.tar
     - name: wget Dependencies debian-stable
       uses: wei/wget@v1
       with:
