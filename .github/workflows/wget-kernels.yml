@@ -1,0 +1,35 @@
+name: CI wget
+
+on: [release]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run a one-line script
+      run: echo Hello, world!
+    #- name: Run a multi-line script
+      #run: |
+        #echo Add other actions to build,
+        #echo test, and deploy your project.
+    - name: mkdir downloads
+      run: mkdir downloads
+
+    - name: wget Dependencies kernels
+      uses: wei/wget@v1
+      with:
+        args: -O downloads/kernels.tar.gz https://cloud.3mdeb.com/index.php/s/UQQVYrNIhg7ddwj/download
+    - run: gzip -k -v -d downloads/*.tar.gz
+    - run: xz -v -e -9 downloads/*.tar
+    - name: Release
+      uses: softprops/action-gh-release@v1
+#      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: |
+          downloads/*
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
