@@ -1,4 +1,4 @@
-name: CI wget kernels
+name: CI wget debian-stable
 
 on: [release]
 
@@ -18,10 +18,10 @@ jobs:
     - name: mkdir downloads
       run: mkdir downloads
 
-    - name: wget Dependencies kernels
+    - name: wget Dependencies debian-stable
       uses: wei/wget@v1
       with:
-        args: -O downloads/kernels.tar.gz https://cloud.3mdeb.com/index.php/s/UQQVYrNIhg7ddwj/download
+        args: -O downloads/debian-stable.tar.gz https://cloud.3mdeb.com/index.php/s/9b8h6WmJcNsuB57/download
     - run: gzip -k -v -d downloads/*.tar.gz
     - run: xz -v -e -9 downloads/*.tar
     - name: Release
