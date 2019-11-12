@@ -1,6 +1,9 @@
 name: CI wget debian-stable
 
-on: [release]
+on: [push]
+    # file paths to consider in the event. Optional; defaults to all.
+    paths:
+      - 'VERSION.TXT'
 
 jobs:
   build:
