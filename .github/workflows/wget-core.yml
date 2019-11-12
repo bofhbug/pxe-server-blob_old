@@ -1,9 +1,10 @@
 name: CI wget core
 
-on: [push]
+on: 
+    push:
     # file paths to consider in the event. Optional; defaults to all.
-    paths:
-      - 'VERSION.TXT'
+        paths:
+        - 'VERSION.TXT'
 
 jobs:
   build:
